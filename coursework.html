@@ -1,675 +1,701 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coursework</title>
-  <style>
-    :root {
-      --bg: #f6f9ff;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #64748b;
-      --border: #dbe5f1;
-      --accent: #2563eb;
-    }
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Coursework</title>
+	<style>
+		:root {
+			--bg: #f6f9ff;
+			--card: #ffffff;
+			--text: #1f2937;
+			--muted: #64748b;
+			--border: #dbe5f1;
+			--accent: #2563eb;
+		}
 
-    * { box-sizing: border-box; }
+		* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
-      padding: 24px;
-    }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: "Segoe UI", Tahoma, sans-serif;
+			color: var(--text);
+			background: linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
+			padding: 24px;
+		}
 
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-    }
+		.container {
+			max-width: 980px;
+			margin: 0 auto;
+		}
 
-    .side-nav {
-      position: fixed;
-      right: 18px;
-      top: 18px;
-      z-index: 20;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
-    }
+		.side-nav {
+			position: fixed;
+			right: 18px;
+			top: 18px;
+			z-index: 20;
+			background: #fff;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 10px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+		}
 
-    .nav-select {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px;
-      font-size: 0.9rem;
-      color: var(--text);
-      background: #fff;
-      min-width: 165px;
-    }
+		.nav-select {
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 8px;
+			font-size: 0.9rem;
+			color: var(--text);
+			background: #fff;
+			min-width: 165px;
+		}
 
-    .go-btn {
-      border: 0;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      background: var(--accent);
-      cursor: pointer;
-    }
+		.go-btn {
+			border: 0;
+			border-radius: 8px;
+			padding: 8px 12px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: #fff;
+			background: var(--accent);
+			cursor: pointer;
+		}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-    }
+		.card {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 24px;
+			box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+		}
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: 1.8rem;
-    }
+		h1 {
+			margin: 0 0 10px;
+			font-size: 1.8rem;
+		}
 
-    p {
-      margin: 0 0 14px;
-      color: var(--muted);
-    }
+		p {
+			margin: 0 0 14px;
+			color: var(--muted);
+		}
 
-    .input-label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
+		.input-label {
+			display: block;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
 
-    .html-input {
-      width: 100%;
-      min-height: 240px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      font-family: "Courier New", monospace;
-      font-size: 0.86rem;
-      resize: vertical;
-      margin-bottom: 12px;
-    }
+		.html-input {
+			width: 100%;
+			min-height: 240px;
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 12px;
+			font-family: "Courier New", monospace;
+			font-size: 0.86rem;
+			resize: vertical;
+			margin-bottom: 12px;
+		}
 
-    .controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+		.controls {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
 
-    .action-btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #fff;
-      background: var(--accent);
-      cursor: pointer;
-    }
+		.action-btn {
+			border: 0;
+			border-radius: 10px;
+			padding: 10px 14px;
+			font-size: 0.9rem;
+			font-weight: 700;
+			color: #fff;
+			background: var(--accent);
+			cursor: pointer;
+		}
 
-    .file-input {
-      font-size: 0.86rem;
-      color: #334155;
-    }
+		.file-input {
+			font-size: 0.86rem;
+			color: #334155;
+		}
 
-    .help {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+		.help {
+			margin-top: 10px;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
 
-    .status {
-      margin-top: 10px;
-      min-height: 1.2rem;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
+		.status {
+			margin-top: 10px;
+			min-height: 1.2rem;
+			font-size: 0.92rem;
+			color: var(--muted);
+		}
 
-    .generated {
-      margin-top: 18px;
-      display: none;
-    }
+		.generated {
+			margin-top: 18px;
+			display: none;
+		}
 
-    .generated.visible {
-      display: block;
-    }
+		.generated.visible {
+			display: block;
+		}
 
-    .table-wrap {
-      overflow-x: auto;
-    }
+		.table-wrap {
+			overflow-x: auto;
+		}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      min-width: 700px;
-      background: #fff;
-    }
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			overflow: hidden;
+			min-width: 700px;
+			background: #fff;
+		}
 
-    th,
-    td {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      vertical-align: top;
-      font-size: 0.92rem;
-    }
+		th,
+		td {
+			padding: 10px 12px;
+			border-bottom: 1px solid var(--border);
+			text-align: left;
+			vertical-align: top;
+			font-size: 0.92rem;
+		}
 
-    th {
-      background: #eff6ff;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+		th {
+			background: #eff6ff;
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+		}
 
-    tr:last-child td {
-      border-bottom: 0;
-    }
+		tr:last-child td {
+			border-bottom: 0;
+		}
 
-    .assignment-row td {
-      background: #f8fbff;
-      border-bottom: 1px solid var(--border);
-    }
+		.assignment-row td {
+			background: #f8fbff;
+			border-bottom: 1px solid var(--border);
+		}
 
-    .assignment-wrap {
-      display: grid;
-      gap: 8px;
-    }
+		.assignment-wrap {
+			display: grid;
+			gap: 8px;
+		}
 
-    .assignment-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #334155;
-      letter-spacing: 0.03em;
-    }
+		.assignment-title {
+			font-size: 0.82rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #334155;
+			letter-spacing: 0.03em;
+		}
 
-    .assignment-list {
-      margin: 0;
-      padding-left: 18px;
-      display: grid;
-      gap: 4px;
-    }
+		.assignment-list {
+			margin: 0;
+			padding-left: 18px;
+			display: grid;
+			gap: 4px;
+		}
 
-    .assignment-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
+		.assignment-item {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: center;
+			gap: 8px;
+		}
 
-    .assignment-item-text {
-      color: #334155;
-    }
+		.assignment-info {
+			min-width: 0;
+			display: grid;
+			gap: 2px;
+		}
 
-    .assignment-meta {
-      color: var(--muted);
-      font-size: 0.8rem;
-      margin-left: 8px;
-    }
+		.assignment-item-text {
+			color: #334155;
+			white-space: normal;
+			word-break: break-word;
+			overflow-wrap: anywhere;
+		}
 
-    .assignment-empty {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+		.assignment-meta {
+			color: var(--muted);
+			font-size: 0.8rem;
+			margin: 0;
+		}
 
-    .assignment-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+		.assignment-actions {
+			display: flex;
+			gap: 6px;
+			align-items: center;
+			justify-content: flex-end;
+		}
 
-    .assignment-input {
-      flex: 1;
-      min-width: 220px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.88rem;
-    }
+		.assignment-empty {
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
 
-    .assignment-date {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.88rem;
-      min-width: 165px;
-    }
+		.assignment-controls {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
 
-    .assignment-time {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.88rem;
-      min-width: 130px;
-    }
+		.assignment-input {
+			flex: 1;
+			min-width: 220px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 8px 10px;
+			font-size: 0.88rem;
+		}
 
-    .assignment-btn {
-      border: 0;
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #fff;
-      background: var(--accent);
-      cursor: pointer;
-    }
+		.assignment-date {
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 8px 10px;
+			font-size: 0.88rem;
+			min-width: 165px;
+		}
 
-    .assignment-delete {
-      border: 0;
-      border-radius: 7px;
-      padding: 6px 9px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      background: #ef4444;
-      cursor: pointer;
-    }
+		.assignment-time {
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 8px 10px;
+			font-size: 0.88rem;
+			min-width: 130px;
+		}
 
-    .assignment-edit {
-      border: 0;
-      border-radius: 7px;
-      padding: 6px 9px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      background: #334155;
-      cursor: pointer;
-      margin-right: 6px;
-    }
+		.assignment-btn {
+			border: 0;
+			border-radius: 8px;
+			padding: 8px 10px;
+			font-size: 0.82rem;
+			font-weight: 700;
+			color: #fff;
+			background: var(--accent);
+			cursor: pointer;
+		}
 
-    @media (max-width: 860px) {
-      body {
-        padding-top: 88px;
-      }
+		.assignment-delete {
+			border: 0;
+			border-radius: 7px;
+			padding: 6px 9px;
+			font-size: 0.75rem;
+			font-weight: 700;
+			color: #fff;
+			background: #ef4444;
+			cursor: pointer;
+		}
 
-      .side-nav {
-        left: 12px;
-        right: 12px;
-        top: 12px;
-      }
+		.assignment-edit {
+			border: 0;
+			border-radius: 7px;
+			padding: 6px 9px;
+			font-size: 0.75rem;
+			font-weight: 700;
+			color: #fff;
+			background: #334155;
+			cursor: pointer;
+		}
 
-      .nav-select {
-        flex: 1;
-      }
-    }
-  </style>
+		@media (max-width: 860px) {
+			body {
+				padding-top: 88px;
+			}
+
+			.side-nav {
+				left: 12px;
+				right: 12px;
+				top: 12px;
+			}
+
+			.nav-select {
+				flex: 1;
+			}
+
+			.assignment-item {
+				grid-template-columns: 1fr;
+				align-items: start;
+			}
+
+			.assignment-actions {
+				justify-content: flex-start;
+			}
+		}
+	</style>
+	<link rel="stylesheet" href="modern.css" />
 </head>
 <body>
-  <nav class="side-nav" aria-label="Quick navigation">
-    <select id="pageSelect" class="nav-select">
-      <option value="index.html">Planner</option>
-      <option value="coursework.html" selected>Coursework</option>
-      <option value="money.html">Money</option>
-      <option value="habit.html">Habit</option>
-    </select>
-    <button id="goPageBtn" class="go-btn" type="button">Go</button>
-  </nav>
+	<nav class="top-tabs" aria-label="Main navigation">
+		<a class="top-tab" href="index.html">Planner</a>
+		<a class="top-tab active" href="coursework.html">Coursework</a>
+		<a class="top-tab" href="money.html">Money</a>
+		<a class="top-tab" href="habit.html">Habit</a>
+	</nav>
 
-  <main class="container">
-    <section class="card">
-      <h1>Coursework</h1>
-      <p>Paste the full Student Reports HTML below, then generate a course summary page.</p>
+	<main class="container">
+		<section class="card">
+			<h1>Coursework</h1>
+			<p>Paste the full Student Reports HTML below, then generate a course summary page.</p>
 
-      <label class="input-label" for="reportHtmlInput">Student Report HTML</label>
-      <textarea id="reportHtmlInput" class="html-input" placeholder="Paste your full HTML report here..."></textarea>
+			<label class="input-label" for="reportHtmlInput">Student Report HTML</label>
+			<textarea id="reportHtmlInput" class="html-input" placeholder="Paste your full HTML report here..."></textarea>
 
-      <div class="controls">
-        <button id="generateBtn" class="action-btn" type="button">Generate Course List</button>
-        <input id="htmlFileInput" class="file-input" type="file" accept=".html,.htm,text/html" />
-        <button id="importFileBtn" class="action-btn" type="button">Import HTML File</button>
-      </div>
-      <p class="help">Direct site login fetch is blocked by browser security. Use paste or import a saved HTML/source file.</p>
-      <p id="status" class="status"></p>
+			<div class="controls">
+				<button id="generateBtn" class="action-btn" type="button">Generate Course List</button>
+				<input id="htmlFileInput" class="file-input" type="file" accept=".html,.htm,text/html" />
+				<button id="importFileBtn" class="action-btn" type="button">Import HTML File</button>
+			</div>
+			<p class="help">Direct site login fetch is blocked by browser security. Use paste or import a saved HTML/source file.</p>
+			<p id="status" class="status"></p>
 
-      <section id="generatedSection" class="generated">
-        <h2>Course Averages</h2>
-        <div class="table-wrap">
-          <table id="coursesTable">
-            <thead>
-              <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Date Range</th>
-                <th>Current Average / Mark</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody id="coursesTableBody"></tbody>
-          </table>
-        </div>
-        <p id="emptyState" class="status"></p>
-      </section>
-    </section>
-  </main>
+			<section id="generatedSection" class="generated">
+				<h2>Course Averages</h2>
+				<div class="table-wrap">
+					<table id="coursesTable">
+						<thead>
+							<tr>
+								<th>Course Code</th>
+								<th>Course Name</th>
+								<th>Date Range</th>
+								<th>Current Average / Mark</th>
+								<th>Details</th>
+							</tr>
+						</thead>
+						<tbody id="coursesTableBody"></tbody>
+					</table>
+				</div>
+				<p id="emptyState" class="status"></p>
+			</section>
+		</section>
+	</main>
 
-  <script>
-    const pageSelect = document.getElementById('pageSelect');
-    const goPageBtn = document.getElementById('goPageBtn');
-    const reportHtmlInput = document.getElementById('reportHtmlInput');
-    const generateBtn = document.getElementById('generateBtn');
-    const htmlFileInput = document.getElementById('htmlFileInput');
-    const importFileBtn = document.getElementById('importFileBtn');
-    const statusEl = document.getElementById('status');
-    const generatedSection = document.getElementById('generatedSection');
-    const coursesTableBody = document.getElementById('coursesTableBody');
-    const emptyState = document.getElementById('emptyState');
+	<script>
+		const pageSelect = document.getElementById('pageSelect');
+		const goPageBtn = document.getElementById('goPageBtn');
+		const reportHtmlInput = document.getElementById('reportHtmlInput');
+		const generateBtn = document.getElementById('generateBtn');
+		const htmlFileInput = document.getElementById('htmlFileInput');
+		const importFileBtn = document.getElementById('importFileBtn');
+		const statusEl = document.getElementById('status');
+		const generatedSection = document.getElementById('generatedSection');
+		const coursesTableBody = document.getElementById('coursesTableBody');
+		const emptyState = document.getElementById('emptyState');
 
-    function goToSelectedPage() {
-      const selected = pageSelect?.value;
-      if (!selected) return;
-      window.location.href = selected;
-    }
+		function goToSelectedPage() {
+			const selected = pageSelect?.value;
+			if (!selected) return;
+			window.location.href = selected;
+		}
 
-    function parseCourseRows(rawHtml) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(rawHtml, 'text/html');
-      const rows = Array.from(doc.querySelectorAll('tr'));
-      const courses = [];
+		function parseCourseRows(rawHtml) {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(rawHtml, 'text/html');
+			const rows = Array.from(doc.querySelectorAll('tr'));
+			const courses = [];
 
-      rows.forEach((row) => {
-        const cells = row.querySelectorAll('td');
-        if (cells.length !== 3) return;
+			rows.forEach((row) => {
+				const cells = row.querySelectorAll('td');
+				if (cells.length !== 3) return;
 
-        const courseCell = cells[0].textContent.replace(/\s+/g, ' ').trim();
-        const dateCell = cells[1].textContent.replace(/\s+/g, ' ').trim();
-        const markCell = cells[2].textContent.replace(/\s+/g, ' ').trim();
+				const courseCell = cells[0].textContent.replace(/\s+/g, ' ').trim();
+				const dateCell = cells[1].textContent.replace(/\s+/g, ' ').trim();
+				const markCell = cells[2].textContent.replace(/\s+/g, ' ').trim();
 
-        if (!courseCell.includes(':')) return;
-        if (!dateCell.includes('~')) return;
+				if (!courseCell.includes(':')) return;
+				if (!dateCell.includes('~')) return;
 
-        const [codePart, namePart] = courseCell.split(':');
-        const code = (codePart || '').trim();
-        const detail = (namePart || '').trim();
+				const [codePart, namePart] = courseCell.split(':');
+				const code = (codePart || '').trim();
+				const detail = (namePart || '').trim();
 
-        courses.push({
-          code,
-          courseName: detail || 'Untitled Course',
-          schedule: courseCell,
-          dateRange: dateCell,
-          mark: markCell || 'N/A',
-          assignments: [],
-        });
-      });
+				courses.push({
+					code,
+					courseName: detail || 'Untitled Course',
+					schedule: courseCell,
+					dateRange: dateCell,
+					mark: markCell || 'N/A',
+					assignments: [],
+				});
+			});
 
-      return courses;
-    }
+			return courses;
+		}
 
-    function loadCourses() {
-      try {
-        const raw = localStorage.getItem('courseAveragesData');
-        const parsed = raw ? JSON.parse(raw) : [];
-        return Array.isArray(parsed)
-          ? parsed.map((course) => ({
-              ...course,
-              assignments: normalizeAssignments(course.assignments),
-            }))
-          : [];
-      } catch {
-        return [];
-      }
-    }
+		function loadCourses() {
+			try {
+				const raw = localStorage.getItem('courseAveragesData');
+				const parsed = raw ? JSON.parse(raw) : [];
+				return Array.isArray(parsed)
+					? parsed.map((course) => ({
+							...course,
+							assignments: normalizeAssignments(course.assignments),
+						}))
+					: [];
+			} catch {
+				return [];
+			}
+		}
 
-    function saveCourses(courses) {
-      localStorage.setItem('courseAveragesData', JSON.stringify(courses));
-    }
+		function saveCourses(courses) {
+			localStorage.setItem('courseAveragesData', JSON.stringify(courses));
+		}
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
+		function escapeHtml(value) {
+			return String(value)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		}
 
-    function normalizeAssignments(assignments) {
-      if (!Array.isArray(assignments)) return [];
+		function normalizeAssignments(assignments) {
+			if (!Array.isArray(assignments)) return [];
 
-      return assignments
-        .map((assignment) => {
-          if (typeof assignment === 'string') {
-            return { title: assignment, dueDate: '' };
-          }
+			return assignments
+				.map((assignment) => {
+					if (typeof assignment === 'string') {
+						return { title: assignment, dueDate: '' };
+					}
 
-          if (assignment && typeof assignment === 'object') {
-            return {
-              title: String(assignment.title || assignment.text || '').trim(),
-              dueDate: String(assignment.dueDate || '').trim(),
-              dueTime: String(assignment.dueTime || '').trim(),
-            };
-          }
+					if (assignment && typeof assignment === 'object') {
+						return {
+							title: String(assignment.title || assignment.text || '').trim(),
+							dueDate: String(assignment.dueDate || '').trim(),
+							dueTime: String(assignment.dueTime || '').trim(),
+						};
+					}
 
-          return null;
-        })
-        .filter((assignment) => assignment && assignment.title);
-    }
+					return null;
+				})
+				.filter((assignment) => assignment && assignment.title);
+		}
 
-    function renderAssignments(course, courseIndex) {
-      const assignments = normalizeAssignments(course.assignments);
-      const itemsHtml = assignments.length
-        ? assignments
-            .map((assignment, assignmentIndex) => `
-              <li class="assignment-item">
-                <span class="assignment-item-text">${escapeHtml(assignment.title)}</span>
-                <span class="assignment-meta">${
-                  assignment.dueDate
-                    ? `Due: ${escapeHtml(assignment.dueDate)}${assignment.dueTime ? ` ${escapeHtml(assignment.dueTime)}` : ''}`
-                    : ''
-                }</span>
-                <button class="assignment-edit" data-course-index="${courseIndex}" data-assignment-index="${assignmentIndex}" type="button">Edit</button>
-                <button class="assignment-delete" data-course-index="${courseIndex}" data-assignment-index="${assignmentIndex}" type="button">Delete</button>
-              </li>
-            `)
-            .join('')
-        : '<p class="assignment-empty">No assignments added for this course yet.</p>';
+		function renderAssignments(course, courseIndex) {
+			const assignments = normalizeAssignments(course.assignments);
+			const itemsHtml = assignments.length
+				? assignments
+						.map((assignment, assignmentIndex) => `
+							<li class="assignment-item">
+								<div class="assignment-info">
+									<span class="assignment-item-text">${escapeHtml(assignment.title)}</span>
+									<span class="assignment-meta">${
+										assignment.dueDate
+											? `Due: ${escapeHtml(assignment.dueDate)}${assignment.dueTime ? ` ${escapeHtml(assignment.dueTime)}` : ''}`
+											: 'No due date'
+									}</span>
+								</div>
+								<div class="assignment-actions">
+									<button class="assignment-edit" data-course-index="${courseIndex}" data-assignment-index="${assignmentIndex}" type="button">Edit</button>
+									<button class="assignment-delete" data-course-index="${courseIndex}" data-assignment-index="${assignmentIndex}" type="button">Delete</button>
+								</div>
+							</li>
+						`)
+						.join('')
+				: '<p class="assignment-empty">No assignments added for this course yet.</p>';
 
-      return `
-        <div class="assignment-wrap">
-          <div class="assignment-title">Assignments</div>
-          ${assignments.length ? `<ul class="assignment-list">${itemsHtml}</ul>` : itemsHtml}
-          <div class="assignment-controls">
-            <input class="assignment-input" type="text" data-assignment-input="${courseIndex}" placeholder="Add assignment for this course" />
-            <input class="assignment-date" type="date" data-assignment-date="${courseIndex}" />
-            <input class="assignment-time" type="time" data-assignment-time="${courseIndex}" />
-            <button class="assignment-btn" type="button" data-add-assignment="${courseIndex}">Add Assignment</button>
-          </div>
-        </div>
-      `;
-    }
+			return `
+				<div class="assignment-wrap">
+					<div class="assignment-title">Assignments</div>
+					${assignments.length ? `<ul class="assignment-list">${itemsHtml}</ul>` : itemsHtml}
+					<div class="assignment-controls">
+						<input class="assignment-input" type="text" data-assignment-input="${courseIndex}" placeholder="Add assignment for this course" />
+						<input class="assignment-date" type="date" data-assignment-date="${courseIndex}" />
+						<input class="assignment-time" type="time" data-assignment-time="${courseIndex}" />
+						<button class="assignment-btn" type="button" data-add-assignment="${courseIndex}">Add Assignment</button>
+					</div>
+				</div>
+			`;
+		}
 
-    function renderCourses() {
-      const courses = loadCourses();
-      coursesTableBody.innerHTML = '';
+		function renderCourses() {
+			const courses = loadCourses();
+			coursesTableBody.innerHTML = '';
 
-      if (!courses.length) {
-        generatedSection.classList.remove('visible');
-        emptyState.textContent = '';
-        return;
-      }
+			if (!courses.length) {
+				generatedSection.classList.remove('visible');
+				emptyState.textContent = '';
+				return;
+			}
 
-      generatedSection.classList.add('visible');
-      emptyState.textContent = '';
+			generatedSection.classList.add('visible');
+			emptyState.textContent = '';
 
-      courses.forEach((course, courseIndex) => {
-        const row = document.createElement('tr');
-        const values = [
-          course.code || '',
-          course.courseName || '',
-          course.dateRange || '',
-          course.mark || '',
-          course.schedule || '',
-        ];
+			courses.forEach((course, courseIndex) => {
+				const row = document.createElement('tr');
+				const values = [
+					course.code || '',
+					course.courseName || '',
+					course.dateRange || '',
+					course.mark || '',
+					course.schedule || '',
+				];
 
-        values.forEach((value) => {
-          const cell = document.createElement('td');
-          cell.textContent = value;
-          row.appendChild(cell);
-        });
-        coursesTableBody.appendChild(row);
+				values.forEach((value) => {
+					const cell = document.createElement('td');
+					cell.textContent = value;
+					row.appendChild(cell);
+				});
+				coursesTableBody.appendChild(row);
 
-        const assignmentRow = document.createElement('tr');
-        assignmentRow.className = 'assignment-row';
-        const assignmentCell = document.createElement('td');
-        assignmentCell.colSpan = 5;
-        assignmentCell.innerHTML = renderAssignments(course, courseIndex);
-        assignmentRow.appendChild(assignmentCell);
-        coursesTableBody.appendChild(assignmentRow);
-      });
-    }
+				const assignmentRow = document.createElement('tr');
+				assignmentRow.className = 'assignment-row';
+				const assignmentCell = document.createElement('td');
+				assignmentCell.colSpan = 5;
+				assignmentCell.innerHTML = renderAssignments(course, courseIndex);
+				assignmentRow.appendChild(assignmentCell);
+				coursesTableBody.appendChild(assignmentRow);
+			});
+		}
 
-    function addAssignment(courseIndex) {
-      const courses = loadCourses();
-      const input = document.querySelector(`[data-assignment-input="${courseIndex}"]`);
-      const dateInput = document.querySelector(`[data-assignment-date="${courseIndex}"]`);
-      const timeInput = document.querySelector(`[data-assignment-time="${courseIndex}"]`);
-      if (!input || !courses[courseIndex]) return;
+		function addAssignment(courseIndex) {
+			const courses = loadCourses();
+			const input = document.querySelector(`[data-assignment-input="${courseIndex}"]`);
+			const dateInput = document.querySelector(`[data-assignment-date="${courseIndex}"]`);
+			const timeInput = document.querySelector(`[data-assignment-time="${courseIndex}"]`);
+			if (!input || !courses[courseIndex]) return;
 
-      const value = input.value.trim();
-      if (!value) return;
-      const dueDate = dateInput ? String(dateInput.value || '') : '';
-      const dueTime = timeInput ? String(timeInput.value || '') : '';
+			const value = input.value.trim();
+			if (!value) return;
+			const dueDate = dateInput ? String(dateInput.value || '') : '';
+			const dueTime = timeInput ? String(timeInput.value || '') : '';
 
-      courses[courseIndex].assignments = normalizeAssignments(courses[courseIndex].assignments);
-      courses[courseIndex].assignments.push({ title: value, dueDate, dueTime });
-      saveCourses(courses);
-      renderCourses();
-    }
+			courses[courseIndex].assignments = normalizeAssignments(courses[courseIndex].assignments);
+			courses[courseIndex].assignments.push({ title: value, dueDate, dueTime });
+			saveCourses(courses);
+			renderCourses();
+		}
 
-    function deleteAssignment(courseIndex, assignmentIndex) {
-      const courses = loadCourses();
-      if (!courses[courseIndex]) return;
+		function deleteAssignment(courseIndex, assignmentIndex) {
+			const courses = loadCourses();
+			if (!courses[courseIndex]) return;
 
-      courses[courseIndex].assignments = courses[courseIndex].assignments.filter((_, i) => i !== assignmentIndex);
-      saveCourses(courses);
-      renderCourses();
-    }
+			courses[courseIndex].assignments = courses[courseIndex].assignments.filter((_, i) => i !== assignmentIndex);
+			saveCourses(courses);
+			renderCourses();
+		}
 
-    function editAssignment(courseIndex, assignmentIndex) {
-      const courses = loadCourses();
-      if (!courses[courseIndex]) return;
+		function editAssignment(courseIndex, assignmentIndex) {
+			const courses = loadCourses();
+			if (!courses[courseIndex]) return;
 
-      courses[courseIndex].assignments = normalizeAssignments(courses[courseIndex].assignments);
-      const current = courses[courseIndex].assignments[assignmentIndex];
-      if (!current) return;
+			courses[courseIndex].assignments = normalizeAssignments(courses[courseIndex].assignments);
+			const current = courses[courseIndex].assignments[assignmentIndex];
+			if (!current) return;
 
-      const nextTitle = window.prompt('Edit assignment title:', current.title || '');
-      if (nextTitle === null) return;
-      const trimmedTitle = nextTitle.trim();
-      if (!trimmedTitle) return;
+			const nextTitle = window.prompt('Edit assignment title:', current.title || '');
+			if (nextTitle === null) return;
+			const trimmedTitle = nextTitle.trim();
+			if (!trimmedTitle) return;
 
-      const nextDueDate = window.prompt('Edit due date (YYYY-MM-DD):', current.dueDate || '');
-      if (nextDueDate === null) return;
-      const dueDate = String(nextDueDate || '').trim();
+			const nextDueDate = window.prompt('Edit due date (YYYY-MM-DD):', current.dueDate || '');
+			if (nextDueDate === null) return;
+			const dueDate = String(nextDueDate || '').trim();
 
-      const nextDueTime = window.prompt('Edit due time (HH:MM, 24-hour):', current.dueTime || '');
-      if (nextDueTime === null) return;
-      const dueTime = String(nextDueTime || '').trim();
+			const nextDueTime = window.prompt('Edit due time (HH:MM, 24-hour):', current.dueTime || '');
+			if (nextDueTime === null) return;
+			const dueTime = String(nextDueTime || '').trim();
 
-      courses[courseIndex].assignments[assignmentIndex] = {
-        title: trimmedTitle,
-        dueDate,
-        dueTime,
-      };
-      saveCourses(courses);
-      renderCourses();
-    }
+			courses[courseIndex].assignments[assignmentIndex] = {
+				title: trimmedTitle,
+				dueDate,
+				dueTime,
+			};
+			saveCourses(courses);
+			renderCourses();
+		}
 
-    function generateCoursePage() {
-      const rawHtml = reportHtmlInput.value.trim();
-      if (!rawHtml) {
-        statusEl.textContent = 'Paste the report HTML first.';
-        return;
-      }
+		function generateCoursePage() {
+			const rawHtml = reportHtmlInput.value.trim();
+			if (!rawHtml) {
+				statusEl.textContent = 'Paste the report HTML first.';
+				return;
+			}
 
-      const courses = parseCourseRows(rawHtml);
-      if (!courses.length) {
-        statusEl.textContent = 'No course rows found in the pasted HTML.';
-        return;
-      }
+			const courses = parseCourseRows(rawHtml);
+			if (!courses.length) {
+				statusEl.textContent = 'No course rows found in the pasted HTML.';
+				return;
+			}
 
-      localStorage.setItem('courseAveragesData', JSON.stringify(courses));
-      statusEl.textContent = `Parsed ${courses.length} courses.`;
-      renderCourses();
-      generatedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+			localStorage.setItem('courseAveragesData', JSON.stringify(courses));
+			statusEl.textContent = `Parsed ${courses.length} courses.`;
+			renderCourses();
+			generatedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
 
-    function importFromFile() {
-      const file = htmlFileInput?.files?.[0];
-      if (!file) {
-        statusEl.textContent = 'Choose an HTML file first.';
-        return;
-      }
+		function importFromFile() {
+			const file = htmlFileInput?.files?.[0];
+			if (!file) {
+				statusEl.textContent = 'Choose an HTML file first.';
+				return;
+			}
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        const text = String(reader.result || '');
-        reportHtmlInput.value = text;
-        statusEl.textContent = `Loaded ${file.name}. Parsing...`;
-        generateCoursePage();
-      };
-      reader.onerror = () => {
-        statusEl.textContent = 'Failed to read the selected file.';
-      };
-      reader.readAsText(file);
-    }
+			const reader = new FileReader();
+			reader.onload = () => {
+				const text = String(reader.result || '');
+				reportHtmlInput.value = text;
+				statusEl.textContent = `Loaded ${file.name}. Parsing...`;
+				generateCoursePage();
+			};
+			reader.onerror = () => {
+				statusEl.textContent = 'Failed to read the selected file.';
+			};
+			reader.readAsText(file);
+		}
 
-    goPageBtn?.addEventListener('click', goToSelectedPage);
-    pageSelect?.addEventListener('change', goToSelectedPage);
-    generateBtn?.addEventListener('click', generateCoursePage);
-    importFileBtn?.addEventListener('click', importFromFile);
+		goPageBtn?.addEventListener('click', goToSelectedPage);
+		pageSelect?.addEventListener('change', goToSelectedPage);
+		generateBtn?.addEventListener('click', generateCoursePage);
+		importFileBtn?.addEventListener('click', importFromFile);
 
-    coursesTableBody?.addEventListener('click', (event) => {
-      const addTarget = event.target.closest('[data-add-assignment]');
-      if (addTarget) {
-        addAssignment(Number(addTarget.getAttribute('data-add-assignment')));
-        return;
-      }
+		coursesTableBody?.addEventListener('click', (event) => {
+			const addTarget = event.target.closest('[data-add-assignment]');
+			if (addTarget) {
+				addAssignment(Number(addTarget.getAttribute('data-add-assignment')));
+				return;
+			}
 
-      const deleteTarget = event.target.closest('.assignment-delete');
-      if (deleteTarget) {
-        const courseIndex = Number(deleteTarget.getAttribute('data-course-index'));
-        const assignmentIndex = Number(deleteTarget.getAttribute('data-assignment-index'));
-        deleteAssignment(courseIndex, assignmentIndex);
-        return;
-      }
+			const deleteTarget = event.target.closest('.assignment-delete');
+			if (deleteTarget) {
+				const courseIndex = Number(deleteTarget.getAttribute('data-course-index'));
+				const assignmentIndex = Number(deleteTarget.getAttribute('data-assignment-index'));
+				deleteAssignment(courseIndex, assignmentIndex);
+				return;
+			}
 
-      const editTarget = event.target.closest('.assignment-edit');
-      if (editTarget) {
-        const courseIndex = Number(editTarget.getAttribute('data-course-index'));
-        const assignmentIndex = Number(editTarget.getAttribute('data-assignment-index'));
-        editAssignment(courseIndex, assignmentIndex);
-      }
-    });
+			const editTarget = event.target.closest('.assignment-edit');
+			if (editTarget) {
+				const courseIndex = Number(editTarget.getAttribute('data-course-index'));
+				const assignmentIndex = Number(editTarget.getAttribute('data-assignment-index'));
+				editAssignment(courseIndex, assignmentIndex);
+			}
+		});
 
-    coursesTableBody?.addEventListener('keydown', (event) => {
-      const input = event.target;
-      if (!(input instanceof HTMLInputElement)) return;
-      if (event.key !== 'Enter') return;
-      const courseIndex = Number(
-        input.getAttribute('data-assignment-input')
-          || input.getAttribute('data-assignment-date')
-          || input.getAttribute('data-assignment-time')
-      );
-      addAssignment(courseIndex);
-    });
+		coursesTableBody?.addEventListener('keydown', (event) => {
+			const input = event.target;
+			if (!(input instanceof HTMLInputElement)) return;
+			if (event.key !== 'Enter') return;
+			const courseIndex = Number(
+				input.getAttribute('data-assignment-input')
+					|| input.getAttribute('data-assignment-date')
+					|| input.getAttribute('data-assignment-time')
+			);
+			addAssignment(courseIndex);
+		});
 
-    renderCourses();
-  </script>
+		renderCourses();
+	</script>
 </body>
 </html>

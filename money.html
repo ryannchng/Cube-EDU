@@ -1,508 +1,506 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Money Tracker</title>
-    <style>
-      :root {
-        --bg: #f6f9ff;
-        --card: #ffffff;
-        --text: #1f2937;
-        --muted: #64748b;
-        --border: #dbe5f1;
-        --accent: #2563eb;
-        --danger: #ef4444;
-      }
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Money Tracker</title>
+	<style>
+	  :root {
+		--bg: #f6f9ff;
+		--card: #ffffff;
+		--text: #1f2937;
+		--muted: #64748b;
+		--border: #dbe5f1;
+		--accent: #2563eb;
+		--danger: #ef4444;
+	  }
 
-      * {
-        box-sizing: border-box;
-      }
+	  * {
+		box-sizing: border-box;
+	  }
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        color: var(--text);
-        background: linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
-        padding: 24px;
-      }
+	  body {
+		margin: 0;
+		min-height: 100vh;
+		font-family: "Segoe UI", Tahoma, sans-serif;
+		color: var(--text);
+		background: linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
+		padding: 24px;
+	  }
 
-      .container {
-        max-width: 980px;
-        margin: 0 auto;
-        display: grid;
-        gap: 16px;
-      }
+	  .container {
+		max-width: 980px;
+		margin: 0 auto;
+		display: grid;
+		gap: 16px;
+	  }
 
-      .side-nav {
-        position: fixed;
-        right: 18px;
-        top: 18px;
-        z-index: 20;
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
-      }
+	  .side-nav {
+		position: fixed;
+		right: 18px;
+		top: 18px;
+		z-index: 20;
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 10px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+	  }
 
-      .nav-select {
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 8px;
-        font-size: 0.9rem;
-        color: var(--text);
-        background: #fff;
-        min-width: 165px;
-      }
+	  .nav-select {
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 8px;
+		font-size: 0.9rem;
+		color: var(--text);
+		background: #fff;
+		min-width: 165px;
+	  }
 
-      .go-btn {
-        border: 0;
-        border-radius: 8px;
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #fff;
-        background: var(--accent);
-        cursor: pointer;
-      }
+	  .go-btn {
+		border: 0;
+		border-radius: 8px;
+		padding: 8px 12px;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: #fff;
+		background: var(--accent);
+		cursor: pointer;
+	  }
 
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-      }
+	  .card {
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 20px;
+		box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+	  }
 
-      h1 {
-        margin: 0 0 6px;
-        font-size: 1.8rem;
-      }
+	  h1 {
+		margin: 0 0 6px;
+		font-size: 1.8rem;
+	  }
 
-      .subtitle {
-        margin: 0;
-        color: var(--muted);
-      }
+	  .subtitle {
+		margin: 0;
+		color: var(--muted);
+	  }
 
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        margin-top: 12px;
-      }
+	  .stats {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+		margin-top: 12px;
+	  }
 
-      .stat {
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 12px;
-        background: #fff;
-      }
+	  .stat {
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		padding: 12px;
+		background: #fff;
+	  }
 
-      .stat-label {
-        margin: 0 0 4px;
-        color: var(--muted);
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        font-weight: 700;
-      }
+	  .stat-label {
+		margin: 0 0 4px;
+		color: var(--muted);
+		font-size: 0.82rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		font-weight: 700;
+	  }
 
-      .stat-value {
-        margin: 0;
-        font-size: 1.25rem;
-        font-weight: 800;
-      }
+	  .stat-value {
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 800;
+	  }
 
-      .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 12px;
-      }
+	  .form-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+		margin-top: 12px;
+	  }
 
-      .field {
-        display: grid;
-        gap: 6px;
-      }
+	  .field {
+		display: grid;
+		gap: 6px;
+	  }
 
-      .field.full {
-        grid-column: 1 / -1;
-      }
+	  .field.full {
+		grid-column: 1 / -1;
+	  }
 
-      label {
-        font-size: 0.85rem;
-        color: #334155;
-        font-weight: 700;
-      }
+	  label {
+		font-size: 0.85rem;
+		color: #334155;
+		font-weight: 700;
+	  }
 
-      input,
-      select {
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 9px 10px;
-        font-size: 0.9rem;
-      }
+	  input,
+	  select {
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 9px 10px;
+		font-size: 0.9rem;
+	  }
 
-      .actions {
-        margin-top: 10px;
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
+	  .actions {
+		margin-top: 10px;
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+	  }
 
-      .btn {
-        border: 0;
-        border-radius: 8px;
-        padding: 9px 12px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #fff;
-        background: var(--accent);
-        cursor: pointer;
-      }
+	  .btn {
+		border: 0;
+		border-radius: 8px;
+		padding: 9px 12px;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: #fff;
+		background: var(--accent);
+		cursor: pointer;
+	  }
 
-      .btn-secondary {
-        background: #334155;
-      }
+	  .btn-secondary {
+		background: #334155;
+	  }
 
-      .list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 8px;
-      }
+	  .list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 8px;
+	  }
 
-      .row {
-        display: grid;
-        grid-template-columns: auto 1fr auto auto;
-        gap: 10px;
-        align-items: center;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 10px;
-        background: #fff;
-      }
+	  .row {
+		display: grid;
+		grid-template-columns: auto 1fr auto auto;
+		gap: 10px;
+		align-items: center;
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		padding: 10px;
+		background: #fff;
+	  }
 
-      .pill {
-        font-size: 0.75rem;
-        background: #e2e8f0;
-        border-radius: 999px;
-        padding: 4px 8px;
-        color: #334155;
-        font-weight: 700;
-        white-space: nowrap;
-      }
+	  .pill {
+		font-size: 0.75rem;
+		background: #e2e8f0;
+		border-radius: 999px;
+		padding: 4px 8px;
+		color: #334155;
+		font-weight: 700;
+		white-space: nowrap;
+	  }
 
-      .note {
-        color: var(--muted);
-        font-size: 0.85rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: 440px;
-      }
+	  .note {
+		color: var(--muted);
+		font-size: 0.85rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 440px;
+	  }
 
-      .amount {
-        font-weight: 800;
-      }
+	  .amount {
+		font-weight: 800;
+	  }
 
-      .delete {
-        border: 0;
-        border-radius: 7px;
-        padding: 7px 9px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #fff;
-        background: var(--danger);
-        cursor: pointer;
-      }
+	  .delete {
+		border: 0;
+		border-radius: 7px;
+		padding: 7px 9px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #fff;
+		background: var(--danger);
+		cursor: pointer;
+	  }
 
-      .empty {
-        color: var(--muted);
-        margin: 0;
-      }
+	  .empty {
+		color: var(--muted);
+		margin: 0;
+	  }
 
-      @media (max-width: 860px) {
-        body {
-          padding-top: 88px;
-        }
+	  @media (max-width: 860px) {
+		body {
+		  padding-top: 88px;
+		}
 
-        .side-nav {
-          left: 12px;
-          right: 12px;
-          top: 12px;
-        }
+		.side-nav {
+		  left: 12px;
+		  right: 12px;
+		  top: 12px;
+		}
 
-        .nav-select {
-          flex: 1;
-        }
+		.nav-select {
+		  flex: 1;
+		}
 
-        .stats {
-          grid-template-columns: 1fr;
-        }
+		.stats {
+		  grid-template-columns: 1fr;
+		}
 
-        .form-grid {
-          grid-template-columns: 1fr;
-        }
+		.form-grid {
+		  grid-template-columns: 1fr;
+		}
 
-        .row {
-          grid-template-columns: 1fr;
-          gap: 6px;
-        }
+		.row {
+		  grid-template-columns: 1fr;
+		  gap: 6px;
+		}
 
-        .note {
-          max-width: none;
-        }
-      }
-    </style>
+		.note {
+		  max-width: none;
+		}
+	  }
+	</style>
+	<link rel="stylesheet" href="modern.css" />
   </head>
   <body>
-    <nav class="side-nav" aria-label="Quick navigation">
-      <select id="pageSelect" class="nav-select">
-        <option value="index.html">Planner</option>
-        <option value="coursework.html">Coursework</option>
-        <option value="money.html" selected>Money</option>
-        <option value="habit.html">Habit</option>
-      </select>
-      <button id="goPageBtn" class="go-btn" type="button">Go</button>
-    </nav>
+	<nav class="top-tabs" aria-label="Main navigation">
+	  <a class="top-tab" href="index.html">Planner</a>
+	  <a class="top-tab" href="coursework.html">Coursework</a>
+	  <a class="top-tab active" href="money.html">Money</a>
+	  <a class="top-tab" href="habit.html">Habit</a>
+	</nav>
 
-    <main class="container">
-      <section class="card">
-        <h1>Money Tracker</h1>
-        <p class="subtitle">Track your expenses and see quick totals.</p>
-        <div class="stats">
-          <div class="stat">
-            <p class="stat-label">Total Spent</p>
-            <p id="totalSpent" class="stat-value">$0.00</p>
-          </div>
-          <div class="stat">
-            <p class="stat-label">This Month</p>
-            <p id="monthSpent" class="stat-value">$0.00</p>
-          </div>
-          <div class="stat">
-            <p class="stat-label">Entries</p>
-            <p id="entryCount" class="stat-value">0</p>
-          </div>
-        </div>
-      </section>
+	<main class="container">
+	  <section class="card">
+		<h1>Money Tracker</h1>
+		<p class="subtitle">Track your expenses and see quick totals.</p>
+		<div class="stats">
+		  <div class="stat">
+			<p class="stat-label">Total Spent</p>
+			<p id="totalSpent" class="stat-value">$0.00</p>
+		  </div>
+		  <div class="stat">
+			<p class="stat-label">This Month</p>
+			<p id="monthSpent" class="stat-value">$0.00</p>
+		  </div>
+		  <div class="stat">
+			<p class="stat-label">Entries</p>
+			<p id="entryCount" class="stat-value">0</p>
+		  </div>
+		</div>
+	  </section>
 
-      <section class="card">
-        <h2>Add Expense</h2>
-        <div class="form-grid">
-          <div class="field">
-            <label for="amountInput">Amount</label>
-            <input
-              id="amountInput"
-              type="number"
-              step="0.01"
-              min="0"
-              placeholder="12.50"
-            />
-          </div>
-          <div class="field">
-            <label for="categoryInput">Category</label>
-            <select id="categoryInput">
-              <option value="Food">Food</option>
-              <option value="School">School</option>
-              <option value="Transport">Transport</option>
-              <option value="Shopping">Shopping</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="dateInput">Date</label>
-            <input id="dateInput" type="date" />
-          </div>
-          <div class="field full">
-            <label for="noteInput">Note</label>
-            <input
-              id="noteInput"
-              type="text"
-              maxlength="120"
-              placeholder="Optional note"
-            />
-          </div>
-        </div>
-        <div class="actions">
-          <button id="addExpenseBtn" class="btn" type="button">
-            Add Expense
-          </button>
-          <button id="clearAllBtn" class="btn btn-secondary" type="button">
-            Clear All
-          </button>
-        </div>
-      </section>
+	  <section class="card">
+		<h2>Add Expense</h2>
+		<div class="form-grid">
+		  <div class="field">
+			<label for="amountInput">Amount</label>
+			<input
+			  id="amountInput"
+			  type="number"
+			  step="0.01"
+			  min="0"
+			  placeholder="12.50"
+			/>
+		  </div>
+		  <div class="field">
+			<label for="categoryInput">Category</label>
+			<select id="categoryInput">
+			  <option value="Food">Food</option>
+			  <option value="School">School</option>
+			  <option value="Transport">Transport</option>
+			  <option value="Shopping">Shopping</option>
+			  <option value="Entertainment">Entertainment</option>
+			  <option value="Other">Other</option>
+			</select>
+		  </div>
+		  <div class="field">
+			<label for="dateInput">Date</label>
+			<input id="dateInput" type="date" />
+		  </div>
+		  <div class="field full">
+			<label for="noteInput">Note</label>
+			<input
+			  id="noteInput"
+			  type="text"
+			  maxlength="120"
+			  placeholder="Optional note"
+			/>
+		  </div>
+		</div>
+		<div class="actions">
+		  <button id="addExpenseBtn" class="btn" type="button">
+			Add Expense
+		  </button>
+		  <button id="clearAllBtn" class="btn btn-secondary" type="button">
+			Clear All
+		  </button>
+		</div>
+	  </section>
 
-      <section class="card">
-        <h2>Expenses</h2>
-        <ul id="expenseList" class="list"></ul>
-        <p id="emptyState" class="empty">No expenses recorded yet.</p>
-      </section>
-    </main>
+	  <section class="card">
+		<h2>Expenses</h2>
+		<ul id="expenseList" class="list"></ul>
+		<p id="emptyState" class="empty">No expenses recorded yet.</p>
+	  </section>
+	</main>
 
-    <script>
-      const pageSelect = document.getElementById("pageSelect");
-      const goPageBtn = document.getElementById("goPageBtn");
-      const amountInput = document.getElementById("amountInput");
-      const categoryInput = document.getElementById("categoryInput");
-      const dateInput = document.getElementById("dateInput");
-      const noteInput = document.getElementById("noteInput");
-      const addExpenseBtn = document.getElementById("addExpenseBtn");
-      const clearAllBtn = document.getElementById("clearAllBtn");
-      const expenseList = document.getElementById("expenseList");
-      const emptyState = document.getElementById("emptyState");
-      const totalSpent = document.getElementById("totalSpent");
-      const monthSpent = document.getElementById("monthSpent");
-      const entryCount = document.getElementById("entryCount");
+	<script>
+	  const pageSelect = document.getElementById("pageSelect");
+	  const goPageBtn = document.getElementById("goPageBtn");
+	  const amountInput = document.getElementById("amountInput");
+	  const categoryInput = document.getElementById("categoryInput");
+	  const dateInput = document.getElementById("dateInput");
+	  const noteInput = document.getElementById("noteInput");
+	  const addExpenseBtn = document.getElementById("addExpenseBtn");
+	  const clearAllBtn = document.getElementById("clearAllBtn");
+	  const expenseList = document.getElementById("expenseList");
+	  const emptyState = document.getElementById("emptyState");
+	  const totalSpent = document.getElementById("totalSpent");
+	  const monthSpent = document.getElementById("monthSpent");
+	  const entryCount = document.getElementById("entryCount");
 
-      const STORAGE_KEY = "moneyExpenses";
+	  const STORAGE_KEY = "moneyExpenses";
 
-      function goToSelectedPage() {
-        const selected = pageSelect?.value;
-        if (!selected) return;
-        window.location.href = selected;
-      }
+	  function goToSelectedPage() {
+		const selected = pageSelect?.value;
+		if (!selected) return;
+		window.location.href = selected;
+	  }
 
-      function loadExpenses() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          const parsed = raw ? JSON.parse(raw) : [];
-          return Array.isArray(parsed) ? parsed : [];
-        } catch {
-          return [];
-        }
-      }
+	  function loadExpenses() {
+		try {
+		  const raw = localStorage.getItem(STORAGE_KEY);
+		  const parsed = raw ? JSON.parse(raw) : [];
+		  return Array.isArray(parsed) ? parsed : [];
+		} catch {
+		  return [];
+		}
+	  }
 
-      function saveExpenses(expenses) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
-      }
+	  function saveExpenses(expenses) {
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+	  }
 
-      function formatCurrency(value) {
-        return new Intl.NumberFormat(undefined, {
-          style: "currency",
-          currency: "CAD",
-        }).format(value);
-      }
+	  function formatCurrency(value) {
+		return new Intl.NumberFormat(undefined, {
+		  style: "currency",
+		  currency: "CAD",
+		}).format(value);
+	  }
 
-      function getCurrentMonthKey() {
-        const now = new Date();
-        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-      }
+	  function getCurrentMonthKey() {
+		const now = new Date();
+		return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+	  }
 
-      function renderStats(expenses) {
-        const total = expenses.reduce(
-          (sum, item) => sum + Number(item.amount || 0),
-          0,
-        );
-        const monthKey = getCurrentMonthKey();
-        const monthTotal = expenses
-          .filter((item) => String(item.date || "").startsWith(monthKey))
-          .reduce((sum, item) => sum + Number(item.amount || 0), 0);
+	  function renderStats(expenses) {
+		const total = expenses.reduce(
+		  (sum, item) => sum + Number(item.amount || 0),
+		  0,
+		);
+		const monthKey = getCurrentMonthKey();
+		const monthTotal = expenses
+		  .filter((item) => String(item.date || "").startsWith(monthKey))
+		  .reduce((sum, item) => sum + Number(item.amount || 0), 0);
 
-        totalSpent.textContent = formatCurrency(total);
-        monthSpent.textContent = formatCurrency(monthTotal);
-        entryCount.textContent = String(expenses.length);
-      }
+		totalSpent.textContent = formatCurrency(total);
+		monthSpent.textContent = formatCurrency(monthTotal);
+		entryCount.textContent = String(expenses.length);
+	  }
 
-      function renderExpenses() {
-        const expenses = loadExpenses();
-        expenseList.innerHTML = "";
-        emptyState.style.display = expenses.length ? "none" : "block";
+	function renderExpenses() {
+		const expenses = loadExpenses();
+		expenseList.innerHTML = "";
+		emptyState.style.display = expenses.length ? "none" : "block";
 
-        expenses
-          .slice()
-          .sort((a, b) => String(b.date).localeCompare(String(a.date)))
-          .forEach((item) => {
-            const row = document.createElement("li");
-            row.className = "row";
+		expenses
+		.slice()
+		.sort((a, b) => String(b.date).localeCompare(String(a.date)))
+		.forEach((item) => {
+			const row = document.createElement("li");
+			row.className = "row";
 
-            const category = document.createElement("span");
-            category.className = "pill";
-            category.textContent = item.category || "Other";
+			const category = document.createElement("span");
+			category.className = "pill";
+			category.textContent = item.category || "Other";
 
-            const note = document.createElement("div");
-            note.className = "note";
-            note.textContent = `${item.date || ""}${item.note ? ` - ${item.note}` : ""}`;
+			const note = document.createElement("div");
+			note.className = "note";
+			note.textContent = `${item.date || ""}${item.note ? ` - ${item.note}` : ""}`;
 
-            const amount = document.createElement("div");
-            amount.className = "amount";
-            amount.textContent = formatCurrency(Number(item.amount || 0));
+			const amount = document.createElement("div");
+			amount.className = "amount";
+			amount.textContent = formatCurrency(Number(item.amount || 0));
 
-            const del = document.createElement("button");
-            del.className = "delete";
-            del.type = "button";
-            del.textContent = "Delete";
-            del.dataset.id = item.id;
+			const del = document.createElement("button");
+			del.className = "delete";
+			del.type = "button";
+			del.textContent = "Delete";
+			del.dataset.id = item.id;
 
-            row.appendChild(category);
-            row.appendChild(note);
-            row.appendChild(amount);
-            row.appendChild(del);
-            expenseList.appendChild(row);
-          });
+			row.appendChild(category);
+			row.appendChild(note);
+			row.appendChild(amount);
+			row.appendChild(del);
+			expenseList.appendChild(row);
+		});
 
-        renderStats(expenses);
-      }
+		renderStats(expenses);
+	}
 
-      function addExpense() {
-        const amount = Number(amountInput.value);
-        const category = categoryInput.value;
-        const date = dateInput.value;
-        const note = noteInput.value.trim();
+	function addExpense() {
+		const amount = Number(amountInput.value);
+		const category = categoryInput.value;
+		const date = dateInput.value;
+		const note = noteInput.value.trim();
 
-        if (!amount || amount <= 0 || !date) return;
+		if (!amount || amount <= 0 || !date) return;
 
-        const expenses = loadExpenses();
-        expenses.push({
-          id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-          amount: Number(amount.toFixed(2)),
-          category,
-          date,
-          note,
-        });
+		const expenses = loadExpenses();
+		expenses.push({
+			id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+			amount: Number(amount.toFixed(2)),
+			category,
+			date,
+			note,
+		});
 
-        saveExpenses(expenses);
-        amountInput.value = "";
-        noteInput.value = "";
-        renderExpenses();
-      }
+		saveExpenses(expenses);
+		amountInput.value = "";
+		noteInput.value = "";
+		renderExpenses();
+	}
 
-      function deleteExpense(id) {
-        const next = loadExpenses().filter((item) => item.id !== id);
-        saveExpenses(next);
-        renderExpenses();
-      }
+	function deleteExpense(id) {
+		const next = loadExpenses().filter((item) => item.id !== id);
+		saveExpenses(next);
+		renderExpenses();
+	}
 
-      function clearAll() {
-        localStorage.removeItem(STORAGE_KEY);
-        renderExpenses();
-      }
+	function clearAll() {
+		localStorage.removeItem(STORAGE_KEY);
+		renderExpenses();
+	}
 
-      dateInput.value = new Date().toISOString().slice(0, 10);
+	dateInput.value = new Date().toISOString().slice(0, 10);
 
-      goPageBtn?.addEventListener("click", goToSelectedPage);
-      pageSelect?.addEventListener("change", goToSelectedPage);
-      addExpenseBtn?.addEventListener("click", addExpense);
-      clearAllBtn?.addEventListener("click", clearAll);
-      amountInput?.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") addExpense();
-      });
+	  goPageBtn?.addEventListener("click", goToSelectedPage);
+	  pageSelect?.addEventListener("change", goToSelectedPage);
+	  addExpenseBtn?.addEventListener("click", addExpense);
+	  clearAllBtn?.addEventListener("click", clearAll);
+	  amountInput?.addEventListener("keydown", (event) => {
+		if (event.key === "Enter") addExpense();
+	  });
 
-      expenseList?.addEventListener("click", (event) => {
-        const button = event.target.closest(".delete");
-        if (!button) return;
-        deleteExpense(button.dataset.id);
-      });
+	  expenseList?.addEventListener("click", (event) => {
+		const button = event.target.closest(".delete");
+		if (!button) return;
+		deleteExpense(button.dataset.id);
+	  });
 
-      renderExpenses();
-    </script>
+	  renderExpenses();
+	</script>
   </body>
 </html>

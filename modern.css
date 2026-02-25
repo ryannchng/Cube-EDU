@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap");
+
+:root {
+	--modern-bg-1: #e7e7e7;
+	--modern-bg-2: #dedede;
+	--modern-panel: #e7e7e7;
+	--modern-panel-alt: #dedede;
+	--modern-border: #d2d2d2;
+	--modern-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+	--modern-shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.08);
+	--modern-accent: #1d348a;
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	font-family: "Manrope", "Segoe UI", Tahoma, sans-serif !important;
+	background:
+		radial-gradient(900px 500px at 0% 0%, #dce8ff 0%, transparent 60%),
+		radial-gradient(900px 500px at 100% 100%, #dff7ef 0%, transparent 58%),
+		linear-gradient(180deg, var(--modern-bg-1) 0%, var(--modern-bg-2) 100%) !important;
+}
+
+.card {
+	background: var(--modern-panel) !important;
+	border: 1px solid var(--modern-border) !important;
+	box-shadow: var(--modern-shadow) !important;
+	backdrop-filter: blur(7px);
+}
+
+.side-nav {
+	background: var(--modern-panel) !important;
+	border: 1px solid var(--modern-border) !important;
+	box-shadow: var(--modern-shadow-soft) !important;
+	backdrop-filter: blur(8px);
+}
+
+.top-tabs {
+	width: min(1240px, 100%);
+	margin: 0 auto 14px;
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.top-tab {
+	text-decoration: none;
+	color: #1e293b;
+	font-weight: 700;
+	font-size: 0.86rem;
+	text-align: center;
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 1px solid var(--modern-border);
+	background: var(--modern-panel-alt);
+	box-shadow: var(--modern-shadow-soft);
+	transition: transform 140ms ease, filter 140ms ease, border-color 140ms ease;
+}
+
+.top-tab:hover {
+	transform: translateY(-1px);
+	filter: brightness(1.01);
+	border-color: #bfd2f5;
+}
+
+.top-tab.active {
+	color: #fff;
+	border-color: transparent;
+	background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+	box-shadow: 0 10px 18px rgba(37, 99, 235, 0.28);
+}
+
+button,
+.add-btn,
+.go-btn,
+.side-go,
+.btn,
+.action-btn,
+.month-btn {
+	background: linear-gradient(180deg, #3778ff 0%, #2563eb 100%) !important;
+	box-shadow: 0 8px 16px rgba(37, 99, 235, 0.22);
+	transform: translateY(0);
+	transition: transform 150ms ease, filter 150ms ease, box-shadow 150ms ease;
+}
+
+button:hover,
+.add-btn:hover,
+.go-btn:hover,
+.side-go:hover,
+.btn:hover,
+.action-btn:hover,
+.month-btn:hover {
+		filter: brightness(1.03);
+		transform: translateY(-1px);
+		box-shadow: 0 10px 18px rgba(37, 99, 235, 0.28);
+	}
+
+input,
+select,
+textarea {
+	border: 1px solid var(--modern-border) !important;
+	background: var(--modern-panel-alt) !important;
+	transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+	border-color: var(--modern-accent) !important;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+table {
+	background: var(--modern-panel) !important;
+	border-color: var(--modern-border) !important;
+}
+
+.table-wrap,
+.assignment-row td {
+	background: var(--modern-panel) !important;
+}
+
+th,
+td {
+	border-color: var(--modern-border) !important;
+}
+
+th {
+	background: var(--modern-panel-alt) !important;
+}
+
+.day-cell {
+	background: var(--modern-panel) !important;
+	box-shadow: inset 0 0 0 1px #d6d6d6;
+}
+
+.day-cell:hover {
+	box-shadow: inset 0 0 0 1px #c2c2c2;
+}
+
+.modal-card {
+	background: var(--modern-panel) !important;
+	border: 1px solid var(--modern-border) !important;
+	box-shadow: 0 24px 40px rgba(15, 23, 42, 0.32) !important;
+}
+
+.todo-item,
+.row,
+.modal-item {
+	background: var(--modern-panel) !important;
+	border-color: var(--modern-border) !important;
+}
+
+/* Planner page: make the main planner and to-do cards use the darker gray */
+.layout > .card:first-child,
+.layout > .todo-panel {
+	background: var(--modern-panel-alt) !important;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #c9d7ef;
+	border-radius: 999px;
+}
+
+@media (max-width: 860px) {
+	body {
+		padding-top: 24px !important;
+	}
+
+	.top-tabs {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.top-tab {
+		font-size: 0.8rem;
+		padding: 9px 8px;
+	}
+}
