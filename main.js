@@ -39,6 +39,7 @@ weekdayRow.innerHTML = '';
 }
 
 function renderCalendar() {
+	const assignmentsByDate = getAssignmentsByDueDate();
 	const year = viewDate.getFullYear();
 	const month = viewDate.getMonth();
 	const firstDay = new Date(year, month, 1);
@@ -72,9 +73,118 @@ function renderCalendar() {
 		cell.classList.add('day-today');
 		}
 
-		cell.textContent = String(dayNum);
+		const cellKey = formatDateKey(cellDate);
+		const dayAssignments = assignmentsByDate[cellKey] || [];
+		if (dayAssignments.length > 0) {
+			const hasOverdue = dayAssignments.some((assignment) => assignment.isOverdue);
+			cell.classList.add(hasOverdue ? 'day-overdue' : 'day-has-due');
+		}
+
+		const header = document.createElement('div');
+		header.className = 'day-header';
+
+		const dayNumber = document.createElement('span');
+		dayNumber.className = 'day-number';
+		dayNumber.textContent = String(dayNum);
+		header.appendChild(dayNumber);
+		cell.appendChild(header);
+
+		const eventList = document.createElement('ul');
+		eventList.className = 'day-events';
+
+		const visibleEvents = dayAssignments.slice(0, 3);
+		visibleEvents.forEach((assignment) => {
+			const item = document.createElement('li');
+			item.className = 'day-event';
+			if (assignment.isOverdue) item.classList.add('overdue');
+			const timePart = assignment.dueTime ? `${formatTime(assignment.dueTime)} - ` : '';
+			item.textContent = assignment.courseName
+				? `${timePart}${assignment.courseName}: ${assignment.title || 'Assignment'}`
+				: `${timePart}${assignment.title || 'Assignment'}`;
+			eventList.appendChild(item);
+		});
+
+		if (dayAssignments.length > visibleEvents.length) {
+			const more = document.createElement('li');
+			more.className = 'day-event-more';
+			more.textContent = `+${dayAssignments.length - visibleEvents.length} more`;
+			eventList.appendChild(more);
+		}
+
+		cell.appendChild(eventList);
 		calendarGrid.appendChild(cell);
 	}
+}
+
+function getAssignmentsByDueDate() {
+	try {
+		const raw = localStorage.getItem('courseAveragesData');
+		const courses = raw ? JSON.parse(raw) : [];
+		const grouped = {};
+		if (!Array.isArray(courses)) return grouped;
+
+		courses.forEach((course) => {
+			const assignments = Array.isArray(course.assignments) ? course.assignments : [];
+			assignments.forEach((assignment) => {
+				const title = typeof assignment === 'string'
+					? String(assignment).trim()
+					: String(assignment?.title || assignment?.text || '').trim();
+				const dueDate = typeof assignment === 'string'
+					? ''
+					: String(assignment?.dueDate || '').trim();
+				const dueTime = typeof assignment === 'string'
+					? ''
+					: String(assignment?.dueTime || '').trim();
+				if (!dueDate) return;
+				if (!grouped[dueDate]) grouped[dueDate] = [];
+				grouped[dueDate].push({
+					title: title || 'Assignment',
+					courseName: String(course?.courseName || ''),
+					courseLabel: getCourseLabel(course),
+					dueTime,
+					isOverdue: isAssignmentOverdue(dueDate, dueTime),
+				});
+			});
+		});
+
+		return grouped;
+	} catch {
+		return {};
+	}
+}
+
+function isAssignmentOverdue(dueDate, dueTime) {
+	if (!dueDate) return false;
+	const now = new Date();
+	const due = parseAssignmentDueDateTime(dueDate, dueTime);
+	return due.getTime() < now.getTime();
+}
+
+function parseAssignmentDueDateTime(dueDate, dueTime) {
+	if (!dueDate) return new Date('2100-01-01T00:00:00');
+	const safeTime = dueTime && dueTime.includes(':') ? dueTime : '23:59';
+	return new Date(`${dueDate}T${safeTime}:00`);
+}
+
+function formatTime(timeValue) {
+	if (!timeValue || !timeValue.includes(':')) return '';
+	const [hourRaw, minuteRaw] = timeValue.split(':');
+	const hour = Number(hourRaw);
+	const minute = Number(minuteRaw);
+	if (Number.isNaN(hour) || Number.isNaN(minute)) return timeValue;
+	const suffix = hour >= 12 ? 'PM' : 'AM';
+	const hour12 = hour % 12 || 12;
+	return `${hour12}:${String(minute).padStart(2, '0')} ${suffix}`;
+}
+
+function getCourseLabel(course) {
+	const schedule = String(course?.schedule || '').trim();
+	if (schedule.includes(':')) {
+		const [, right] = schedule.split(/:(.*)/s);
+		const cleaned = String(right || '').replace(/\s+/g, ' ').trim();
+		if (cleaned) return cleaned;
+	}
+	return String(course?.courseName || '').trim() || 'Course';
 }
 
 function loadTodos() {
@@ -91,12 +201,67 @@ function saveTodos(store) {
 
 function getTodayTodos() {
 	const store = loadTodos();
-	return Array.isArray(store[todayKey]) ? store[todayKey] : [];
+	const rawTodos = Array.isArray(store[todayKey]) ? store[todayKey] : [];
+	return rawTodos.map((todo) => normalizeTodo(todo)).filter(Boolean);
 }
 
 function setTodayTodos(todos) {
 	const store = loadTodos();
 	store[todayKey] = todos;
+	saveTodos(store);
+}
+
+function normalizeTodo(todo) {
+	if (typeof todo === 'string') {
+		return { text: todo, done: false, source: 'manual' };
+	}
+	if (!todo || typeof todo !== 'object') return null;
+	return {
+		text: String(todo.text || ''),
+		done: Boolean(todo.done),
+		source: todo.source || 'manual',
+		assignmentKey: todo.assignmentKey || '',
+	};
+}
+
+function syncAssignmentTodosForToday() {
+	const store = loadTodos();
+	const todayTodos = Array.isArray(store[todayKey]) ? store[todayKey].map(normalizeTodo).filter(Boolean) : [];
+
+	const assignmentTodos = [];
+	const grouped = getAssignmentsByDueDate();
+	Object.entries(grouped).forEach(([dueDate, assignments]) => {
+		assignments.forEach((assignment) => {
+			if (!assignment.isOverdue && dueDate !== todayKey) return;
+			const assignmentKey = `${assignment.courseName}|${assignment.title}|${dueDate}|${assignment.dueTime || ''}`;
+			const dueLabel = assignment.dueTime ? `${dueDate} ${formatTime(assignment.dueTime)}` : dueDate;
+			const assignmentLabel = assignment.isOverdue ? 'Overdue' : 'Due';
+			const courseLabel = assignment.courseLabel || assignment.courseName || 'Course';
+			assignmentTodos.push({
+				assignmentKey,
+				text: `[${assignmentLabel}] ${courseLabel}: ${assignment.title} (Due ${dueLabel})`,
+			});
+		});
+	});
+
+	const assignmentKeySet = new Set(assignmentTodos.map((item) => item.assignmentKey));
+	const nextTodos = todayTodos.filter((todo) => todo.source !== 'assignment' || assignmentKeySet.has(todo.assignmentKey));
+
+	assignmentTodos.forEach((assignmentTodo) => {
+		const exists = nextTodos.some(
+			(todo) => todo.source === 'assignment' && todo.assignmentKey === assignmentTodo.assignmentKey
+		);
+		if (!exists) {
+			nextTodos.push({
+				text: assignmentTodo.text,
+				done: false,
+				source: 'assignment',
+				assignmentKey: assignmentTodo.assignmentKey,
+			});
+		}
+	});
+
+	store[todayKey] = nextTodos;
 	saveTodos(store);
 }
 
@@ -179,6 +344,7 @@ todayDateEl.textContent = now.toLocaleDateString(undefined, {
 	year: 'numeric',
 });
 
+syncAssignmentTodosForToday();
 renderWeekdays();
 renderCalendar();
 renderTodos();

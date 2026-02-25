@@ -30,10 +30,10 @@
 
     .layout {
       width: 100%;
-      max-width: 980px;
+      max-width: 1240px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 2.8fr 0.52fr;
       gap: 20px;
     }
 
@@ -143,13 +143,41 @@
     }
 
     .day-cell {
-      min-height: 46px;
+      min-height: 112px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
       background: #fff;
       font-weight: 600;
+      padding: 6px;
+    }
+
+    .day-header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .day-number {
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+    }
+
+    .day-has-due {
+      border-color: #93c5fd;
+      background: #eff6ff;
+    }
+
+    .day-overdue {
+      border-color: #fca5a5;
+      background: #fff5f5;
     }
 
     .day-outside {
@@ -163,29 +191,67 @@
       color: #1e40af;
     }
 
+    .day-today .day-number {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .day-events {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      align-content: start;
+    }
+
+    .day-event {
+      font-size: 0.73rem;
+      line-height: 1.2;
+      border-radius: 6px;
+      padding: 3px 5px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .day-event.overdue {
+      background: #fee2e2;
+      color: #7f1d1d;
+    }
+
+    .day-event-more {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 700;
+      padding-left: 2px;
+    }
+
     .todo-title {
       margin: 0 0 6px;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .todo-date {
       margin: 0 0 16px;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
     }
 
     .add-row {
       display: flex;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .add-input {
       flex: 1;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.95rem;
+      padding: 8px 10px;
+      font-size: 0.85rem;
     }
 
     .todo-list {
@@ -201,7 +267,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: #fff;
@@ -209,16 +275,17 @@
 
     .todo-left {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: flex-start;
+      gap: 8px;
       min-width: 0;
       flex: 1;
     }
 
     .todo-text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.25;
     }
 
     .todo-done {
@@ -231,10 +298,14 @@
       border-radius: 8px;
       background: #ef4444;
       color: #fff;
-      padding: 7px 10px;
-      font-size: 0.8rem;
+      padding: 6px 8px;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    .todo-panel {
+      padding: 12px;
     }
 
     .empty {
@@ -279,6 +350,10 @@
       .layout {
         grid-template-columns: 1fr;
       }
+
+      .day-cell {
+        min-height: 96px;
+      }
     }
   </style>
 </head>
@@ -303,11 +378,12 @@
           <button id="nextMonthBtn" class="nav-btn" type="button" aria-label="Next month">&gt;</button>
         </div>
       </div>
+      <p class="subtitle" style="margin-top:0;margin-bottom:10px;">Red badges show assignment due dates.</p>
       <div class="weekday-row" id="weekdayRow"></div>
       <div class="calendar-grid" id="calendarGrid" aria-label="Calendar"></div>
     </section>
 
-    <section class="card">
+    <section class="card todo-panel">
       <h2 class="todo-title">Today To-Do List</h2>
       <p class="todo-date" id="todayDate"></p>
       <div class="add-row">
